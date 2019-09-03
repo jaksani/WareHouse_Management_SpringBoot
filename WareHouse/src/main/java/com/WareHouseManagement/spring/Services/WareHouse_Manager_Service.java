@@ -75,12 +75,15 @@ public class WareHouse_Manager_Service {
 		item_interface.delete(item);
 	}
 
-	public String updatePrice(Item_Details itemDetails) {
+	public Item_Details updatePrice(Item_Details itemDetails) {
 		// TODO Auto-generated method stub
-		Item_Details item=item_interface.findById(itemDetails.getItem_code()).get();
-		item.setItem_price(itemDetails.getItem_price());
-		item_interface.save(item);
-		return "Price Updated";
+		if(customer_interface.existsById(itemDetails.getItem_code()))
+		{
+			Item_Details item=item_interface.findById(itemDetails.getItem_code()).get();
+			item.setItem_price(itemDetails.getItem_price());
+			item_interface.save(item);
+		}
+		return null;
 	}
 
 	public Order_Details placeOrder(Order_Details orderDetails) {
@@ -114,17 +117,26 @@ public class WareHouse_Manager_Service {
 
 	public ArrayList<Purchase_Details> listPurchase(LocalDate date) {
 		// TODO Auto-generated method stub
-		return purchase_interface.getPurchaseList(date);
+		ArrayList<Purchase_Details> purchaseList=purchase_interface.getPurchaseList(date);
+		if(purchaseList!=null)
+			return purchaseList;
+		return null;
 	}
 
 	public ArrayList<Order_Details> getOrders(String username) {
 		// TODO Auto-generated method stub
-		return order_interface.getListMyOrders(username);
+		ArrayList<Order_Details> orderList=order_interface.getListMyOrders(username);
+		if(orderList!=null)
+			return orderList;
+		return null;
 	}
 
 	public Customer_Details getcustomerDetails(int customer_code) {
 		// TODO Auto-generated method stub
-		return customer_interface.findById(customer_code).get();
+		//Customer_Details customerDetails=customer_interface.findById(customer_code).get();
+		if(customer_interface.existsById(customer_code))
+			return customer_interface.findById(customer_code).get();
+		return null;
 	}
 
 	public Order_Details orderCancel(Order_Details orderDetails) {
@@ -132,6 +144,7 @@ public class WareHouse_Manager_Service {
 		if(orderDetails.getStatus().equals("Canceled"))
 		{
 			orderDone.setStatus("Canceled");
+			order_interface.save(orderDone);
 			return orderDone;
 		}
 		return null;

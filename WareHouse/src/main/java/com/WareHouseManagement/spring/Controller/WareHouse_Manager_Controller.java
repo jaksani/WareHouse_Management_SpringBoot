@@ -100,8 +100,17 @@ public class WareHouse_Manager_Controller {
 		itemDetails.setItem_code(item_code);
 		itemDetails.setItem_price(item_price);
 		Item_Details itemDone=restTemplate.postForObject(restURl.getrestURL()+"rest_UpdatePrice", itemDetails, Item_Details.class);
-		modelAndView.addObject("status","Price Updated");
-		modelAndView.addObject("Id",itemDone.getItem_code());
+		if(itemDone!=null)
+		{
+			modelAndView.addObject("status","Price Updated");
+			modelAndView.addObject("Id",itemDone.getItem_code());
+		}
+		else
+		{
+			modelAndView.addObject("status","itemNotFound");
+			modelAndView.addObject("id",item_code);
+			
+		}
 		modelAndView.setViewName("WareHouse_Manager");
 		return modelAndView;
 	}
@@ -112,22 +121,22 @@ public class WareHouse_Manager_Controller {
 	
 		ResponseEntity<ArrayList<Purchase_Details>> purchaseList = restTemplate.exchange(restURl.getrestURL()+"rest_ListPurchase/"+date, HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Purchase_Details>>() {
 		});
-		modelAndView.addObject("status","ListofPurchases");
-		modelAndView.addObject("purchaseList",purchaseList.getBody());
+		
+		if(!purchaseList.getBody().isEmpty())
+		{
+			modelAndView.addObject("status","ListofPurchases");
+			modelAndView.addObject("purchaseList",purchaseList.getBody());
+		}
+		else
+		{
+			modelAndView.addObject("status","purchaseNotFound");
+			modelAndView.addObject("date",date);
+			
+		}
 		modelAndView.setViewName("WareHouse_Manager");
 		return modelAndView;
 	}
 	
-	@RequestMapping("DiscountItem")
-	public ModelAndView DiscountItem(int item_code)
-	{
-		Item_Details itemDetails=new Item_Details();
-		itemDetails.setItem_code(item_code);
-		String result=restTemplate.postForObject(restURl.getrestURL()+"rest_DiscountItem", itemDetails, String.class);
-		modelAndView.addObject("status",result);
-		modelAndView.setViewName("WareHouse_Manager");
-		return modelAndView;
-	}
 	
 	@RequestMapping("CustomerRegister")
 	public ModelAndView CustomerRegister(String customer_name,String address,String phone_number)
@@ -153,7 +162,6 @@ public class WareHouse_Manager_Controller {
 		Customer_Details customer=restTemplate.getForObject(restURl.getrestURL()+"rest_getCustomerDetails/"+customer_code, Customer_Details.class);
 		if(customer!=null)
 		{
-			System.out.println(customer);
 			modelAndView.addObject("status","customerDetails");
 			modelAndView.addObject("Details",customer);
 		}

@@ -50,7 +50,7 @@ public class WareHouse_Manager_RestController {
 	
 	@RequestMapping("rest_UpdatePrice")
 	@PostMapping
-	public String UpdatePrice(@RequestBody Item_Details itemDetails)
+	public Item_Details UpdatePrice(@RequestBody Item_Details itemDetails)
 	{
 		return wareHouseManagerService.updatePrice(itemDetails);
 	}

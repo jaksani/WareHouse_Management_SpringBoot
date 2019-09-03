@@ -71,6 +71,12 @@ input {
 				<li><a href="home">LOGOUT</a></li>
 			</ul>
 		</div>
+		<div style="margin-left: 25%; padding: 1px 16px; height: 100px;font-size:20px;">
+			<center>
+				Welcome WareHouse Manager
+			</center>
+		</div>
+		
 <%
 	String status=(String)request.getAttribute("status");
 	if(status!=null)
@@ -286,6 +292,26 @@ input {
 			</div>
 <%
 		}	
+		else if(status.equals("purchaseNotFound"))
+		{
+%>
+			<div style="margin-left: 25%; padding: 1px 16px; height: 1000px;">
+						<center>
+							No Purchase Exists on the given date : ${date}<br/>
+						</center>
+			</div>
+<%
+		}
+		else if(status.equals("itemNotFound"))
+		{
+%>
+			<div style="margin-left: 25%; padding: 1px 16px; height: 1000px;">
+						<center>
+							Item Does Not Exists with given Item Code : ${id}<br/>
+						</center>
+			</div>
+<%
+		}
 		else if(status.equals("customerDetails"))
 		{
 			Customer_Details customer=(Customer_Details)request.getAttribute("Details");

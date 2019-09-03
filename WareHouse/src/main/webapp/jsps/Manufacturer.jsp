@@ -52,12 +52,17 @@ input {
 </head>
 <%@page import="java.util.ArrayList,com.WareHouseManagement.spring.Entities.Order_Details" %>
 <body>
-<div>
+		<div>
 			<h2>MENU</h2>
 			<ul>
 				<li><a href="viewOrders">ORDERS</a></li>
 				<li><a href="home">LOGOUT</a></li>
 			</ul>
+		</div>
+		<div style="margin-left: 25%; padding: 1px 16px; height: 100px;font-size:20px;">
+			<center>
+				Welcome Manufacturer
+			</center>
 		</div>
 
 <%
