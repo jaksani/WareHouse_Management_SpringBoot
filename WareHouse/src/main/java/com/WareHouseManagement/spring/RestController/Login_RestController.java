@@ -21,9 +21,7 @@ public class Login_RestController {
 		User user=new User();
 		user.setUser_name(username);
 		user.setPassword(password);
-//		System.out.println(user.toString());
-//		System.out.println("After"+repo.getUserType(user).getUser_name());
-		return repo.getUserType(user).getUser_type();
+		return repo.getUserType(user);
 		
 	}
 }

@@ -28,17 +28,26 @@ public class Login_Controller {
 	public ModelAndView Login1(String user_name,String password)
 	{
 	
-		System.out.println(restURl.getrestURL());
 		String userType=restTemplate.getForObject(restURl.getrestURL()+"verify/"+user_name+"/"+password, String.class);
-		if(userType.equals("Manufacturer"))
+		if(!userType.equals("Wrong"))
 		{
-			modelAndView.addObject("username",user_name);
-			modelAndView.setViewName("Manufacturer");
+			if(userType.equals("Manufacturer"))
+			{
+				modelAndView.addObject("username",user_name);
+				modelAndView.setViewName("Manufacturer");
+			}
+			else if(userType.equals("WareHouse_Manager"))
+			{
+				modelAndView.addObject("username",user_name);
+				modelAndView.setViewName("WareHouse_Manager");
+			}
 		}
-		else if(userType.equals("WareHouse_Manager"))
+		else 
 		{
-			modelAndView.addObject("username",user_name);
-			modelAndView.setViewName("WareHouse_Manager");
+			ModelAndView mv=new ModelAndView();
+			mv.addObject("status","Wrong Credentials");
+			mv.setViewName("index");
+			return mv;
 		}
 		return modelAndView;
 	}

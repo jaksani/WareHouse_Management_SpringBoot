@@ -55,8 +55,17 @@ public class WareHouse_Manager_Controller {
 	@RequestMapping("DeleteItem")
 	public ModelAndView DeleteItem(String item_code)
 	{
-		restTemplate.delete(restURl.getrestURL()+"rest_DeleteItem/"+item_code);
-		modelAndView.addObject("status","Item Deleted");
+		int itemCode=Integer.parseInt(item_code);
+		Item_Details itemDetails=new Item_Details();
+		itemDetails.setItem_code(itemCode);
+		String result=restTemplate.postForObject(restURl.getrestURL()+"rest_DeleteItem/", itemDetails, String.class);
+		if(result.equals("deleted"))
+		{
+			modelAndView.addObject("status","Item Deleted");
+		}
+		else
+			modelAndView.addObject("status","itemNotFound");
+		modelAndView.addObject("id",item_code);
 		modelAndView.setViewName("WareHouse_Manager");
 		return modelAndView;
 	}
@@ -70,9 +79,29 @@ public class WareHouse_Manager_Controller {
 		purchaseDetails.setItem_code(item_code);
 		purchaseDetails.setQuantity(item_quantity);
 		Purchase_Details purchaseDone=restTemplate.postForObject(restURl.getrestURL()+"rest_Billing", purchaseDetails, Purchase_Details.class);
-		modelAndView.addObject("amount",purchaseDone.getPurchase_amount());
-		modelAndView.addObject("transactionId",purchaseDone.getTransaction_id());
-		modelAndView.addObject("status","billingResult");
+		if(purchaseDone!=null)
+		{
+			if(purchaseDone.getItem_code()==0)
+			{
+				modelAndView.addObject("status","itemNotFound");
+				modelAndView.addObject("id",item_code);
+			}
+			else if(purchaseDone.getQuantity()==0)
+			{	
+				modelAndView.addObject("status","Stock Insufficient");
+			}
+			else
+			{
+				modelAndView.addObject("amount",purchaseDone.getPurchase_amount());
+				modelAndView.addObject("transactionId",purchaseDone.getTransaction_id());
+				modelAndView.addObject("status","billingResult");
+			}
+		}
+		else
+		{
+			modelAndView.addObject("status","customerNotFound");
+			modelAndView.addObject("id",customer_code);
+		}
 		modelAndView.setViewName("WareHouse_Manager");
 		return modelAndView;
 	}
@@ -87,8 +116,16 @@ public class WareHouse_Manager_Controller {
 		orderDetails.setManager_name(manager_name);
 		orderDetails.setStatus("pending");
 		Order_Details orderDone=restTemplate.postForObject(restURl.getrestURL()+"rest_PlaceOrder", orderDetails, Order_Details.class);
-		modelAndView.addObject("status","Order Placed");
-		modelAndView.addObject("orderId",orderDone.getOrder_Id());
+		if(orderDone!=null)
+		{
+			modelAndView.addObject("status","Order Placed");
+			modelAndView.addObject("orderId",orderDone.getOrder_Id());	
+		}
+		else
+		{
+			modelAndView.addObject("status","itemNotFound");
+			modelAndView.addObject("id",item_code);
+		}
 		modelAndView.setViewName("WareHouse_Manager");
 		return modelAndView;
 	}

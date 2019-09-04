@@ -205,7 +205,9 @@ input {
 		{
 %>
 			<div style="margin-left: 25%; padding: 1px 16px; height: 1000px;">
-						<center>Item Deleted</center>
+						<center>
+							Item Deletedwith item code : ${Id}<br/>
+						</center>
 				</div>
 <%
 		}
@@ -239,7 +241,7 @@ input {
 %>
 			<div style="margin-left: 25%; padding: 1px 16px; height: 1000px;">
 						<center>
-							Price Updated for the Item with item code : ${Id}
+							Price Updated for the Item with item code : ${Id}<br/>
 						</center>
 			</div>
 <%
@@ -308,6 +310,17 @@ input {
 			<div style="margin-left: 25%; padding: 1px 16px; height: 1000px;">
 						<center>
 							Item Does Not Exists with given Item Code : ${id}<br/>
+						</center>
+			</div>
+<%
+		}
+		else if(status.equals("Stock Insufficient"))
+		{
+%>
+			<div style="margin-left: 25%; padding: 1px 16px; height: 1000px;">
+						<center>
+							Stock is Insufficient<br/>
+							To continue billing place an order to the manufacturer<br/>
 						</center>
 			</div>
 <%

@@ -39,13 +39,12 @@ public class WareHouse_Manager_RestController {
 	}
 	
 	
-	@RequestMapping("rest_DeleteItem/{item_code}")
+	@RequestMapping("rest_DeleteItem")
 	@DeleteMapping
-	public void DeleteItem(@PathVariable int item_code)
+	public String DeleteItem(@RequestBody Item_Details itemDetails)
 	{
-		Item_Details itemDetails =new Item_Details();
-		itemDetails.setItem_code(item_code);
-		wareHouseManagerService.deleteItem(itemDetails);
+		String result=wareHouseManagerService.deleteItem(itemDetails);
+		return result;
 	}
 	
 	@RequestMapping("rest_UpdatePrice")

@@ -16,20 +16,19 @@ public class LoginService extends WareHouseApplication {
 	@Autowired
 	UserEntity userEntity;
 
-	public User getUserType(User user) {
+	public String getUserType(User user) {
 		String password = user.getPassword();
-
-		User user1=userEntity.findById(user.getUser_name()).get();
-		
-		if(user1!=null)
+		if(userEntity.existsById(user.getUser_name()))
 		{
+			User user1=userEntity.findById(user.getUser_name()).get();
+		
 			if(password.equals(user1.getPassword()))
 			{
-				return user1;
+				return user1.getUser_type();
 			}
 			else
-				return null;
+				return "Wrong";
 		}
-		return null;
+		return "Wrong";
 	}
 }
