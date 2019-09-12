@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.Controller;
+package com.comakeit.whms.controller;
 
 import java.util.ArrayList;
 
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.WareHouseManagement.spring.RestUrl;
-import com.WareHouseManagement.spring.Entities.Customer_Details;
-import com.WareHouseManagement.spring.Entities.Item_Details;
-import com.WareHouseManagement.spring.Entities.Order_Details;
-import com.WareHouseManagement.spring.Entities.Purchase_Details;
+import com.comakeit.whms.RestUrl;
+import com.comakeit.whms.bean.Customer_Details;
+import com.comakeit.whms.bean.Item_Details;
+import com.comakeit.whms.bean.Order_Details;
+import com.comakeit.whms.bean.Purchase_Details;
 
 @Controller
 public class WareHouse_Manager_Controller {
@@ -47,6 +47,7 @@ public class WareHouse_Manager_Controller {
 		modelAndView.addObject("status","ListofMyOrders");
 		ResponseEntity<ArrayList<Order_Details>> orderList = restTemplate.exchange(restURl.getrestURL()+"rest_myOrders/"+username, HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Order_Details>>() {
 		});
+		System.out.println(orderList.getBody());
 		modelAndView.addObject("orderList",orderList.getBody());
 		modelAndView.setViewName("WareHouse_Manager");
 		return modelAndView;
@@ -58,7 +59,7 @@ public class WareHouse_Manager_Controller {
 		int itemCode=Integer.parseInt(item_code);
 		Item_Details itemDetails=new Item_Details();
 		itemDetails.setItem_code(itemCode);
-		String result=restTemplate.postForObject(restURl.getrestURL()+"rest_DeleteItem/", itemDetails, String.class);
+		String result=restTemplate.postForObject(restURl.getrestURL()+"rest_DeleteItem/", itemDetails,String.class);
 		if(result.equals("deleted"))
 		{
 			modelAndView.addObject("status","Item Deleted");

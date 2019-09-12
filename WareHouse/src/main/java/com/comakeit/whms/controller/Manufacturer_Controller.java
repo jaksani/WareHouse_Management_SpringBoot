@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.Controller;
+package com.comakeit.whms.controller;
 
 import java.util.ArrayList;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.WareHouseManagement.spring.RestUrl;
-import com.WareHouseManagement.spring.Entities.Order_Details;
+import com.comakeit.whms.RestUrl;
+import com.comakeit.whms.bean.Order_Details;
 
 @Controller
 public class Manufacturer_Controller {

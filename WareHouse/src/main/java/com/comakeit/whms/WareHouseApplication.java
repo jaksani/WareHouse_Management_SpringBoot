@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring;
+package com.comakeit.whms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

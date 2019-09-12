@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.RestController;
+package com.comakeit.whms.restcontroller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.WareHouseManagement.spring.Entities.Customer_Details;
-import com.WareHouseManagement.spring.Entities.Item_Details;
-import com.WareHouseManagement.spring.Entities.Order_Details;
-import com.WareHouseManagement.spring.Entities.Purchase_Details;
-import com.WareHouseManagement.spring.Services.WareHouse_Manager_Service;
+import com.comakeit.whms.bean.Customer_Details;
+import com.comakeit.whms.bean.Item_Details;
+import com.comakeit.whms.bean.Order_Details;
+import com.comakeit.whms.bean.Purchase_Details;
+import com.comakeit.whms.service.WareHouse_Manager_Service;
 
 @RestController
 public class WareHouse_Manager_RestController {
@@ -24,75 +25,65 @@ public class WareHouse_Manager_RestController {
 	@Autowired
 	WareHouse_Manager_Service wareHouseManagerService;
 	
-	@RequestMapping("rest_viewItems")
-	@PostMapping
+	@RequestMapping(value="rest_viewItems",method=RequestMethod.GET)
 	public ArrayList<Item_Details> viewItems()
 	{
 		return wareHouseManagerService.getItems();
 	}
 	
-	@RequestMapping("rest_customerRegister")
-	@PostMapping
+	@RequestMapping(value="rest_customerRegister",method=RequestMethod.POST)
 	public Customer_Details customerRegister(@RequestBody Customer_Details customerDetails)
 	{
 		return wareHouseManagerService.createCustomer(customerDetails);
 	}
 	
 	
-	@RequestMapping("rest_DeleteItem")
-	@DeleteMapping
+	@RequestMapping(value="rest_DeleteItem",method=RequestMethod.DELETE)
 	public String DeleteItem(@RequestBody Item_Details itemDetails)
 	{
 		String result=wareHouseManagerService.deleteItem(itemDetails);
 		return result;
 	}
 	
-	@RequestMapping("rest_UpdatePrice")
-	@PostMapping
+	@RequestMapping(value="rest_UpdatePrice",method=RequestMethod.PUT)
 	public Item_Details UpdatePrice(@RequestBody Item_Details itemDetails)
 	{
 		return wareHouseManagerService.updatePrice(itemDetails);
 	}
 	
 	
-	@RequestMapping("rest_PlaceOrder")
-	@PostMapping
+	@RequestMapping(value="rest_PlaceOrder",method=RequestMethod.POST)
 	public Order_Details PlaceOrder(@RequestBody Order_Details orderDetails)
 	{
 		return wareHouseManagerService.placeOrder(orderDetails);
 	}
 	
-	@RequestMapping("rest_OrderCancel")
-	@PostMapping
+	@RequestMapping(value="rest_OrderCancel",method=RequestMethod.PUT)
 	public Order_Details OrderCancel(@RequestBody Order_Details orderDetails)
 	{
 		return wareHouseManagerService.orderCancel(orderDetails);
 	}
 	
-	@RequestMapping("rest_Billing")
-	@PostMapping
+	@RequestMapping(value="rest_Billing",method=RequestMethod.POST)
 	public Purchase_Details Billing(@RequestBody Purchase_Details purchaseDetails)
 	{
 		return wareHouseManagerService.billing(purchaseDetails);
 	}
 	
-	@RequestMapping("rest_ListPurchase/{date}")
-	@PostMapping
+	@RequestMapping(value="rest_ListPurchase/{date}",method=RequestMethod.GET)
 	public ArrayList<Purchase_Details> ListPurchase(@PathVariable("date") String date)
 	{
 		return wareHouseManagerService.listPurchase(LocalDate.parse(date));
 	}
 	
-	@RequestMapping("rest_myOrders/{username}")
-	@GetMapping
+	@RequestMapping(value="rest_myOrders/{username}",method=RequestMethod.GET)
 	public ArrayList<Order_Details> viewOrders(@PathVariable("username") String username)
 	{
 		return wareHouseManagerService.getOrders(username);
 	}
 	
 	
-	@RequestMapping("rest_getCustomerDetails/{customer_code}")
-	@GetMapping
+	@RequestMapping(value="rest_getCustomerDetails/{customer_code}",method=RequestMethod.GET)
 	public Customer_Details customerDetails(@PathVariable("customer_code") int customer_code)
 	{
 		return wareHouseManagerService.getcustomerDetails(customer_code);

@@ -50,11 +50,7 @@ input {
 </style>
 <title>WareHouse Manager Home Page</title>
 </head>
-<%@page import="java.util.ArrayList,
-				com.WareHouseManagement.spring.Entities.Order_Details,
-				com.WareHouseManagement.spring.Entities.Item_Details,
-				com.WareHouseManagement.spring.Entities.Purchase_Details,
-				com.WareHouseManagement.spring.Entities.Customer_Details" %>
+<%@page import="java.util.ArrayList,com.comakeit.whms.bean.Order_Details,com.comakeit.whms.bean.Item_Details,com.comakeit.whms.bean.Purchase_Details,com.comakeit.whms.bean.Customer_Details" %>
 <body>
 		<div>
 			<h2>MENU</h2>
@@ -350,7 +346,7 @@ input {
 									<td><%="Order_Id" %></td>		
 									<td><%="Item_Code" %></td>
 									<td><%="Item_Quantity" %></td>
-									<td><%="WareManager_Name" %></td>
+									<td><%="WareHouse_Manager_Name" %></td>
 									<td><%="Order_Status" %></td>
 							    </tr>
 							</thead>

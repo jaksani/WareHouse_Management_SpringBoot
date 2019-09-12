@@ -1,13 +1,13 @@
-package com.WareHouseManagement.spring.Services;
+package com.comakeit.whms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.WareHouseManagement.spring.WareHouseApplication;
-import com.WareHouseManagement.spring.Entities.User;
-import com.WareHouseManagement.spring.Repository.UserEntity;
+import com.comakeit.whms.WareHouseApplication;
+import com.comakeit.whms.bean.User;
+import com.comakeit.whms.repository.UserEntity;
 @Component
 @EnableAutoConfiguration
 @Service

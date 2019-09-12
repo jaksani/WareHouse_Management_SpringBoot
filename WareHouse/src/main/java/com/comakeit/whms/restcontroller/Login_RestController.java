@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.RestController;
+package com.comakeit.whms.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.WareHouseManagement.spring.Entities.User;
-import com.WareHouseManagement.spring.Services.LoginService;
+import com.comakeit.whms.bean.User;
+import com.comakeit.whms.service.LoginService;
 
 @RestController
 @RequestMapping("verify")

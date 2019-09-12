@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.Services;
+package com.comakeit.whms.service;
 
 import java.util.ArrayList;
 
@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.WareHouseManagement.spring.Entities.Item_Details;
-import com.WareHouseManagement.spring.Entities.Order_Details;
-import com.WareHouseManagement.spring.Repository.Item_Details_Interface;
-import com.WareHouseManagement.spring.Repository.Order_Details_Interface;
+import com.comakeit.whms.bean.Item_Details;
+import com.comakeit.whms.bean.Order_Details;
+import com.comakeit.whms.repository.Item_Details_Interface;
+import com.comakeit.whms.repository.Order_Details_Interface;
 
 @Component
 @EnableAutoConfiguration

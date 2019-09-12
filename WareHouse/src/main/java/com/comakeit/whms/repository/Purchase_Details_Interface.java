@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.Repository;
+package com.comakeit.whms.repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.WareHouseManagement.spring.Entities.Purchase_Details;
+import com.comakeit.whms.bean.Purchase_Details;
 
 @Repository
 public interface Purchase_Details_Interface extends JpaRepository<Purchase_Details, Integer>{

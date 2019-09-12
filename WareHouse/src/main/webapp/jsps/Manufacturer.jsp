@@ -50,7 +50,7 @@ input {
 </style>
 <title>Manufacturer Home Page</title>
 </head>
-<%@page import="java.util.ArrayList,com.WareHouseManagement.spring.Entities.Order_Details" %>
+<%@page import="java.util.ArrayList,com.comakeit.whms.bean.Order_Details" %>
 <body>
 		<div>
 			<h2>MENU</h2>

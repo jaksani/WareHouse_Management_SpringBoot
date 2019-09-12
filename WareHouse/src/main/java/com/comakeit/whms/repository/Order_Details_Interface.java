@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.Repository;
+package com.comakeit.whms.repository;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.WareHouseManagement.spring.Entities.Order_Details;
+import com.comakeit.whms.bean.Order_Details;
 
 @Repository
 public interface Order_Details_Interface extends JpaRepository<Order_Details, Integer>{

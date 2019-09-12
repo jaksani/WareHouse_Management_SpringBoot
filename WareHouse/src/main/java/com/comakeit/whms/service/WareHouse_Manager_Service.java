@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.Services;
+package com.comakeit.whms.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,14 +8,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.WareHouseManagement.spring.Entities.Customer_Details;
-import com.WareHouseManagement.spring.Entities.Item_Details;
-import com.WareHouseManagement.spring.Entities.Order_Details;
-import com.WareHouseManagement.spring.Entities.Purchase_Details;
-import com.WareHouseManagement.spring.Repository.Customer_Details_Interface;
-import com.WareHouseManagement.spring.Repository.Item_Details_Interface;
-import com.WareHouseManagement.spring.Repository.Order_Details_Interface;
-import com.WareHouseManagement.spring.Repository.Purchase_Details_Interface;
+import com.comakeit.whms.bean.Customer_Details;
+import com.comakeit.whms.bean.Item_Details;
+import com.comakeit.whms.bean.Order_Details;
+import com.comakeit.whms.bean.Purchase_Details;
+import com.comakeit.whms.repository.Customer_Details_Interface;
+import com.comakeit.whms.repository.Item_Details_Interface;
+import com.comakeit.whms.repository.Order_Details_Interface;
+import com.comakeit.whms.repository.Purchase_Details_Interface;
 
 @Component
 @EnableAutoConfiguration
@@ -69,7 +69,7 @@ public class WareHouse_Manager_Service {
 						discount=(item_price*10)/100;
 					else if(item_quantity>100)
 						discount=(item_price*20)/100;
-					item_price=(item_price*item_quantity)-discount;
+					item_price=(item_quantity*(item_price-discount));
 					return item_price;
 				}
 		}
@@ -161,7 +161,7 @@ public class WareHouse_Manager_Service {
 
 	public Customer_Details getcustomerDetails(int customer_code) {
 		// TODO Auto-generated method stub
-		//Customer_Details customerDetails=customer_interface.findById(customer_code).get();
+		
 		if(customer_interface.existsById(customer_code))
 			return customer_interface.findById(customer_code).get();
 		return null;

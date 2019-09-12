@@ -1,9 +1,9 @@
-package com.WareHouseManagement.spring.Repository;
+package com.comakeit.whms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.WareHouseManagement.spring.Entities.User;
+import com.comakeit.whms.bean.User;
 @Repository
 public interface UserEntity extends JpaRepository<User, String>{
 

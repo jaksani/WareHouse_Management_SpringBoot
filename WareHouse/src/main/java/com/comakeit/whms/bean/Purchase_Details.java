@@ -1,4 +1,4 @@
-package com.WareHouseManagement.spring.Entities;
+package com.comakeit.whms.bean;
 
 import java.time.LocalDate;
 
