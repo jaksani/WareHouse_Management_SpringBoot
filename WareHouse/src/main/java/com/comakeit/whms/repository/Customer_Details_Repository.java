@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.comakeit.whms.bean.Customer_Details;
 
 @Repository
-public interface Customer_Details_Interface extends JpaRepository<Customer_Details,Integer>{
+public interface Customer_Details_Repository extends JpaRepository<Customer_Details,Integer>{
 
 }

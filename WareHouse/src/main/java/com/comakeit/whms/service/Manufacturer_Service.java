@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.comakeit.whms.bean.Item_Details;
 import com.comakeit.whms.bean.Order_Details;
-import com.comakeit.whms.repository.Item_Details_Interface;
-import com.comakeit.whms.repository.Order_Details_Interface;
+import com.comakeit.whms.repository.Item_Details_Repository;
+import com.comakeit.whms.repository.Order_Details_Repository;
 
 @Component
 @EnableAutoConfiguration
@@ -18,10 +18,10 @@ import com.comakeit.whms.repository.Order_Details_Interface;
 public class Manufacturer_Service {
 	
 	@Autowired
-	Order_Details_Interface order_interface;
+	Order_Details_Repository order_interface;
 	
 	@Autowired
-	Item_Details_Interface item_interface;
+	Item_Details_Repository item_interface;
 
 	public ArrayList<Order_Details> getOrders(String username) {
 		// TODO Auto-generated method stub

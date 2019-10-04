@@ -7,28 +7,28 @@ import org.springframework.stereotype.Service;
 
 import com.comakeit.whms.WareHouseApplication;
 import com.comakeit.whms.bean.User;
-import com.comakeit.whms.repository.UserEntity;
+import com.comakeit.whms.repository.UserRepository;
 @Component
 @EnableAutoConfiguration
 @Service
 public class LoginService extends WareHouseApplication {
 
 	@Autowired
-	UserEntity userEntity;
+	UserRepository userRepository;
 
-	public String getUserType(User user) {
+	public User getUserType(User user) {
 		String password = user.getPassword();
-		if(userEntity.existsById(user.getUser_name()))
+		if(userRepository.existsById(user.getUser_name()))
 		{
-			User user1=userEntity.findById(user.getUser_name()).get();
+			User user1=userRepository.findById(user.getUser_name()).get();
 		
 			if(password.equals(user1.getPassword()))
 			{
-				return user1.getUser_type();
+				return user1;
 			}
 			else
-				return "Wrong";
+				return user;
 		}
-		return "Wrong";
+		return user;
 	}
 }

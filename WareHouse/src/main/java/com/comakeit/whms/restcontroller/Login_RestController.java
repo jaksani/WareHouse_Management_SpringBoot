@@ -1,7 +1,7 @@
 package com.comakeit.whms.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,12 +15,10 @@ public class Login_RestController {
 	 @Autowired
 	 LoginService repo;
 	
-	@RequestMapping(value ="/{username}/{password}",method = RequestMethod.GET)
-	public String verify(@PathVariable String username,@PathVariable String password)
+	@RequestMapping(value ="/login",method = RequestMethod.POST)
+	public User verify(@RequestBody User user)
 	{
-		User user=new User();
-		user.setUser_name(username);
-		user.setPassword(password);
+		System.out.println(user.getUser_name());
 		return repo.getUserType(user);
 		
 	}

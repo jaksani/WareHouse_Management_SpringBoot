@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.comakeit.whms.bean.Purchase_Details;
 
 @Repository
-public interface Purchase_Details_Interface extends JpaRepository<Purchase_Details, Integer>{
+public interface Purchase_Details_Repository extends JpaRepository<Purchase_Details, Integer>{
 
 	@Query("select purchase from Purchase_Details purchase where purchase.date_of_purchase = :date")
 	ArrayList<Purchase_Details> getPurchaseList(@PathVariable("date") LocalDate date);

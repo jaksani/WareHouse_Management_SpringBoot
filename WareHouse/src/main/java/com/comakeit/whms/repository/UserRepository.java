@@ -3,9 +3,8 @@ package com.comakeit.whms.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.comakeit.whms.bean.Item_Details;
-
+import com.comakeit.whms.bean.User;
 @Repository
-public interface Item_Details_Interface extends JpaRepository<Item_Details, Integer>{
+public interface UserRepository extends JpaRepository<User, String>{
 
 }

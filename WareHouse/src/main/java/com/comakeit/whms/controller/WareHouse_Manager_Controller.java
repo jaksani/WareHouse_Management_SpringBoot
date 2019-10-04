@@ -182,7 +182,8 @@ public class WareHouse_Manager_Controller {
 		Customer_Details customerDetails=new Customer_Details();
 		customerDetails.setCustomer_name(customer_name);
 		customerDetails.setAddress(address);
-		customerDetails.setPhone_number(phone_number);
+		int number=Integer.parseInt(phone_number);
+		customerDetails.setPhone_number(number);
 		Customer_Details customer=restTemplate.postForObject(restURl.getrestURL()+"rest_customerRegister", customerDetails, Customer_Details.class);
 		if(customer!=null)
 		{

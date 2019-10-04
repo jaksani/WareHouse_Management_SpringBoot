@@ -12,7 +12,7 @@ public class Customer_Details {
 	private int customer_code;
 	private String customer_name;
 	private String address;
-	private String phone_number;
+	private int phone_number;
 	public int getCustomer_code() {
 		return customer_code;
 	}
@@ -31,17 +31,18 @@ public class Customer_Details {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getPhone_number() {
+	public int getPhone_number() {
 		return phone_number;
 	}
-	public void setPhone_number(String phone_number) {
+	public void setPhone_number(int phone_number) {
 		this.phone_number = phone_number;
 	}
 	@Override
 	public String toString() {
-		return "Customer_Details [customer_name=" + customer_name + ", address="
+		return "Customer_Details [customer_code=" + customer_code + ", customer_name=" + customer_name + ", address="
 				+ address + ", phone_number=" + phone_number + "]";
 	}
+	
 	
 	
 }

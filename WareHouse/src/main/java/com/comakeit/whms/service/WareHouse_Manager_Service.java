@@ -12,10 +12,10 @@ import com.comakeit.whms.bean.Customer_Details;
 import com.comakeit.whms.bean.Item_Details;
 import com.comakeit.whms.bean.Order_Details;
 import com.comakeit.whms.bean.Purchase_Details;
-import com.comakeit.whms.repository.Customer_Details_Interface;
-import com.comakeit.whms.repository.Item_Details_Interface;
-import com.comakeit.whms.repository.Order_Details_Interface;
-import com.comakeit.whms.repository.Purchase_Details_Interface;
+import com.comakeit.whms.repository.Customer_Details_Repository;
+import com.comakeit.whms.repository.Item_Details_Repository;
+import com.comakeit.whms.repository.Order_Details_Repository;
+import com.comakeit.whms.repository.Purchase_Details_Repository;
 
 @Component
 @EnableAutoConfiguration
@@ -26,16 +26,16 @@ public class WareHouse_Manager_Service {
 	WareHouse_Manager_Service WMService;
 	
 	@Autowired
-	Item_Details_Interface item_interface;
+	Item_Details_Repository item_interface;
 	
 	@Autowired
-	Customer_Details_Interface customer_interface;
+	Customer_Details_Repository customer_interface;
 
 	@Autowired
-	Order_Details_Interface order_interface;
+	Order_Details_Repository order_interface;
 	
 	@Autowired
-	Purchase_Details_Interface purchase_interface;
+	Purchase_Details_Repository purchase_interface;
 	
 	public ArrayList<Item_Details> getItems() {
 		// TODO Auto-generated method stub

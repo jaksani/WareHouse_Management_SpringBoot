@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.comakeit.whms.bean.Order_Details;
 
 @Repository
-public interface Order_Details_Interface extends JpaRepository<Order_Details, Integer>{
+public interface Order_Details_Repository extends JpaRepository<Order_Details, Integer>{
 
 	@Query("select order from Order_Details order where order.manufacturer_name = :username")
 	ArrayList<Order_Details> getListofOrders(@PathVariable("username") String username);
