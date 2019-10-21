@@ -18,23 +18,23 @@ import com.comakeit.whms.repository.Order_Details_Repository;
 public class Manufacturer_Service {
 	
 	@Autowired
-	Order_Details_Repository order_interface;
+	Order_Details_Repository orderRepository;
 	
 	@Autowired
-	Item_Details_Repository item_interface;
+	Item_Details_Repository itemRepository;
 
 	public ArrayList<Order_Details> getOrders(String username) {
 		// TODO Auto-generated method stub
-		return order_interface.getListofOrders(username);
+		return orderRepository.getListofOrders(username);
 	}
 
 	public Order_Details getOrderUpdate(Order_Details orderDetails) {
 		// TODO Auto-generated method stub
-		Order_Details orderDone=order_interface.findById(orderDetails.getOrder_Id()).get();
+		Order_Details orderDone=orderRepository.findById(orderDetails.getOrder_Id()).get();
 		
 		if(orderDetails.getStatus().equals("Accepted"))
 		{
-			Item_Details itemDetails=item_interface.findById(orderDone.getItem_code()).get();
+			Item_Details itemDetails=itemRepository.findById(orderDone.getItem_code()).get();
 			if(itemDetails!=null)
 			{
 				int itemStock=itemDetails.getStock();
@@ -45,8 +45,8 @@ public class Manufacturer_Service {
 				itemDetails.setStock(itemStock);
 				orderDone.setStatus("Accepted");
 				
-				item_interface.save(itemDetails);
-				order_interface.save(orderDone);
+				itemRepository.save(itemDetails);
+				orderRepository.save(orderDone);
 				
 				
 				return orderDone;

@@ -18,19 +18,19 @@ public class Manufacturer_RestController {
 	@Autowired
 	Manufacturer_Service manufactuerService;
 	
-	@RequestMapping(value="rest_viewOrders/{username}",method=RequestMethod.GET)
+	@RequestMapping(value="rest/viewOrders/{username}",method=RequestMethod.GET)
 	public ArrayList<Order_Details> viewOrders(@PathVariable("username") String username)
 	{
 		return manufactuerService.getOrders(username);
 	}
 	
-	@RequestMapping(value="rest_OrderReject",method=RequestMethod.PUT)
+	@RequestMapping(value="rest/rejectOrder",method=RequestMethod.PUT)
 	public Order_Details orderReject(@RequestBody Order_Details orderDetails)
 	{
 		return manufactuerService.getOrderUpdate(orderDetails);
 	}
 	
-	@RequestMapping(value="rest_OrderAccept",method=RequestMethod.PUT)
+	@RequestMapping(value="rest/acceptOrder",method=RequestMethod.PUT)
 	public Order_Details orderAccept(@RequestBody Order_Details orderDetails)
 	{
 		return manufactuerService.getOrderUpdate(orderDetails);

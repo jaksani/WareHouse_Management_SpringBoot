@@ -7,19 +7,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comakeit.whms.bean.User;
+import com.comakeit.whms.exception.UnAuthorizedException;
 import com.comakeit.whms.service.LoginService;
 
 @RestController
 @RequestMapping("verify")
 public class Login_RestController {
 	 @Autowired
-	 LoginService repo;
+	 LoginService loginRepository;
 	
 	@RequestMapping(value ="/login",method = RequestMethod.POST)
-	public User verify(@RequestBody User user)
+	public User verify(@RequestBody User loginCredentials)
 	{
-		System.out.println(user.getUser_name());
-		return repo.getUserType(user);
+		
+		User user=loginRepository.getUserType(loginCredentials);
+		if(user==null)
+		{
+//			throw new UnAuthorizedException("Authorization denied");
+			return null;
+		}
+		else
+		{
+			return user;
+		}
 		
 	}
 }

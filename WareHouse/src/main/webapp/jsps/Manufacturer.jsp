@@ -79,7 +79,7 @@ input {
 					<td><%="Order_Id" %></td>		
 					<td><%="Item_Code" %></td>
 					<td><%="Item_Quantity" %></td>
-					<td><%="WareManager_Name" %></td>
+					<td><%="WareHouseManager_Name" %></td>
 					<td><%="Order_Status" %></td>
 			    </tr>
 			</thead>

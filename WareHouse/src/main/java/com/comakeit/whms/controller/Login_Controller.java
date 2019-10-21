@@ -27,8 +27,10 @@ public class Login_Controller {
 	@RequestMapping("login")
 	public ModelAndView Login1(String user_name,String password)
 	{
-	
-		User user=restTemplate.getForObject(restURl.getrestURL()+"verify/"+user_name+"/"+password, User.class);
+		User loginCredentials=new User();
+		loginCredentials.setUser_name(user_name);
+		loginCredentials.setPassword(password);
+		User user=restTemplate.postForObject(restURl.getrestURL()+"verify/login",loginCredentials, User.class);
 		if(!user.getUser_type().equals("Wrong"))
 		{
 			if(user.getUser_type().equals("Manufacturer"))

@@ -12,7 +12,7 @@ public class Customer_Details {
 	private int customer_code;
 	private String customer_name;
 	private String address;
-	private int phone_number;
+	private long phone_number;
 	public int getCustomer_code() {
 		return customer_code;
 	}
@@ -31,10 +31,10 @@ public class Customer_Details {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getPhone_number() {
+	public long getPhone_number() {
 		return phone_number;
 	}
-	public void setPhone_number(int phone_number) {
+	public void setPhone_number(long phone_number) {
 		this.phone_number = phone_number;
 	}
 	@Override

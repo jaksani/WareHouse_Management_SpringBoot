@@ -26,33 +26,33 @@ public class WareHouse_Manager_Service {
 	WareHouse_Manager_Service WMService;
 	
 	@Autowired
-	Item_Details_Repository item_interface;
+	Item_Details_Repository itemRepository;
 	
 	@Autowired
-	Customer_Details_Repository customer_interface;
+	Customer_Details_Repository customerRepository;
 
 	@Autowired
-	Order_Details_Repository order_interface;
+	Order_Details_Repository orderRepository;
 	
 	@Autowired
-	Purchase_Details_Repository purchase_interface;
+	Purchase_Details_Repository purchaseRepository;
 	
 	public ArrayList<Item_Details> getItems() {
 		// TODO Auto-generated method stub
-		ArrayList<Item_Details> itemList= (ArrayList<Item_Details>) item_interface.findAll();
+		ArrayList<Item_Details> itemList= (ArrayList<Item_Details>) itemRepository.findAll();
 		return itemList;
 	}
 	
 	public Customer_Details createCustomer(Customer_Details customerDetails)
 	{
-		return customer_interface.save(customerDetails);		
+		return customerRepository.save(customerDetails);		
 	}
 
 	public int discountItem(int item_code,int item_quantity) {
 		
-		if(item_interface.existsById(item_code))
+		if(itemRepository.existsById(item_code))
 		{
-			Item_Details item=item_interface.findById(item_code).get();
+			Item_Details item=itemRepository.findById(item_code).get();
 				int item_price = item.getItem_price();
 				int stock=item.getStock();
 				if(stock<item_quantity)
@@ -63,7 +63,7 @@ public class WareHouse_Manager_Service {
 				{
 					stock=stock-item_quantity;
 					item.setStock(stock);
-					item_interface.save(item);
+					itemRepository.save(item);
 					int discount = 0;
 					if(item_quantity>=10 && item_quantity<=100)
 						discount=(item_price*10)/100;
@@ -76,40 +76,42 @@ public class WareHouse_Manager_Service {
 		return 0;
 	}
 
-	public String deleteItem(Item_Details itemDetails) {
+	public Item_Details deleteItem(Integer item_code) {
 		// TODO Auto-generated method stub
-		if(item_interface.existsById(itemDetails.getItem_code()))
+		if(itemRepository.existsById(item_code))
 		{
-			Item_Details item=item_interface.findById(itemDetails.getItem_code()).get();
-			item_interface.delete(item);
-			return "deleted";
+			Item_Details item=itemRepository.findById(item_code).get();
+			itemRepository.delete(item);
+			return item;
 		}
-		return "null";
+		return null;
 	}
 
 	public Item_Details updatePrice(Item_Details itemDetails) {
 		// TODO Auto-generated method stub
-		if(customer_interface.existsById(itemDetails.getItem_code()))
+		if(customerRepository.existsById(itemDetails.getItem_code()))
 		{
-			Item_Details item=item_interface.findById(itemDetails.getItem_code()).get();
+			Item_Details item=itemRepository.findById(itemDetails.getItem_code()).get();
 			item.setItem_price(itemDetails.getItem_price());
-			item_interface.save(item);
+			itemRepository.save(item);
+			return item;
 		}
 		return null;
 	}
 
 	public Order_Details placeOrder(Order_Details orderDetails) {
 		// TODO Auto-generated method stub
-		if(item_interface.existsById(orderDetails.getItem_code()))
+		if(itemRepository.existsById(orderDetails.getItem_code()))
 		{
-			return order_interface.save(orderDetails);
+			orderDetails.setStatus("pending");
+			return orderRepository.save(orderDetails);
 		}
 		return null;
 	}
 
 	public Purchase_Details billing(Purchase_Details purchaseDetails) {
 		// TODO Auto-generated method stub
-		if(customer_interface.existsById(purchaseDetails.getCustomer_code()))
+		if(customerRepository.existsById(purchaseDetails.getCustomer_code()))
 		{
 			Purchase_Details purchase=new Purchase_Details();
 			int totalPrice=WMService.discountItem(purchaseDetails.getItem_code(),purchaseDetails.getQuantity());	
@@ -135,7 +137,7 @@ public class WareHouse_Manager_Service {
 				purchase.setQuantity(purchaseDetails.getQuantity());
 				purchase.setPurchase_amount(totalPrice);
 				
-				Purchase_Details purchaseDone=purchase_interface.save(purchase);
+				Purchase_Details purchaseDone=purchaseRepository.save(purchase);
 				
 				return purchaseDone;
 			}
@@ -145,7 +147,7 @@ public class WareHouse_Manager_Service {
 
 	public ArrayList<Purchase_Details> listPurchase(LocalDate date) {
 		// TODO Auto-generated method stub
-		ArrayList<Purchase_Details> purchaseList=purchase_interface.getPurchaseList(date);
+		ArrayList<Purchase_Details> purchaseList=purchaseRepository.getPurchaseList(date);
 		if(purchaseList!=null)
 			return purchaseList;
 		return null;
@@ -153,7 +155,7 @@ public class WareHouse_Manager_Service {
 
 	public ArrayList<Order_Details> getOrders(String username) {
 		// TODO Auto-generated method stub
-		ArrayList<Order_Details> orderList=order_interface.getListMyOrders(username);
+		ArrayList<Order_Details> orderList=orderRepository.getListMyOrders(username);
 		if(orderList!=null)
 			return orderList;
 		return null;
@@ -162,17 +164,17 @@ public class WareHouse_Manager_Service {
 	public Customer_Details getcustomerDetails(int customer_code) {
 		// TODO Auto-generated method stub
 		
-		if(customer_interface.existsById(customer_code))
-			return customer_interface.findById(customer_code).get();
+		if(customerRepository.existsById(customer_code))
+			return customerRepository.findById(customer_code).get();
 		return null;
 	}
 
 	public Order_Details orderCancel(Order_Details orderDetails) {
-		Order_Details orderDone=order_interface.findById(orderDetails.getOrder_Id()).get();
+		Order_Details orderDone=orderRepository.findById(orderDetails.getOrder_Id()).get();
 		if(orderDetails.getStatus().equals("Canceled"))
 		{
 			orderDone.setStatus("Canceled");
-			order_interface.save(orderDone);
+			orderRepository.save(orderDone);
 			return orderDone;
 		}
 		return null;

@@ -346,7 +346,7 @@ input {
 									<td><%="Order_Id" %></td>		
 									<td><%="Item_Code" %></td>
 									<td><%="Item_Quantity" %></td>
-									<td><%="WareHouse_Manager_Name" %></td>
+									<td><%="Manufacturer_Name" %></td>
 									<td><%="Order_Status" %></td>
 							    </tr>
 							</thead>
@@ -359,7 +359,7 @@ input {
 								    <td><%=orderList.get(k).getOrder_Id()%></td>
 								    <td><%=orderList.get(k).getItem_code() %></td>
 									<td><%=orderList.get(k).getItem_quantity() %></td>
-									<td><%=orderList.get(k).getManager_name() %></td>
+									<td><%=orderList.get(k).getManufacturer_name() %></td>
 									<td><%=orderList.get(k).getStatus() %></td>
 <%
 							        if(orderList.get(k).getStatus().equals("pending"))

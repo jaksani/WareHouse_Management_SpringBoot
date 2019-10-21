@@ -16,19 +16,19 @@ public class LoginService extends WareHouseApplication {
 	@Autowired
 	UserRepository userRepository;
 
-	public User getUserType(User user) {
-		String password = user.getPassword();
-		if(userRepository.existsById(user.getUser_name()))
+	public User getUserType(User loginCredentials) {
+		String password = loginCredentials.getPassword();
+		if(userRepository.existsById(loginCredentials.getUser_name()))
 		{
-			User user1=userRepository.findById(user.getUser_name()).get();
+			User user=userRepository.findById(loginCredentials.getUser_name()).get();
 		
-			if(password.equals(user1.getPassword()))
+			if(password.equals(user.getPassword()))
 			{
-				return user1;
+				return user;
 			}
 			else
-				return user;
+				return null;
 		}
-		return user;
+		return null;
 	}
 }

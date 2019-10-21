@@ -34,7 +34,7 @@ public class WareHouse_Manager_Controller {
 	public ModelAndView viewItems()
 	{
 		modelAndView.addObject("status","viewItems");
-		ResponseEntity<ArrayList<Item_Details>> itemList = restTemplate.exchange(restURl.getrestURL()+"rest_viewItems", HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Item_Details>>() {
+		ResponseEntity<ArrayList<Item_Details>> itemList = restTemplate.exchange(restURl.getrestURL()+"rest/viewItems", HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Item_Details>>() {
 		});
 		modelAndView.addObject("itemList",itemList.getBody());
 		modelAndView.setViewName("WareHouse_Manager");
@@ -45,7 +45,7 @@ public class WareHouse_Manager_Controller {
 	public ModelAndView ListMyOrders(@SessionAttribute("username") String username)
 	{
 		modelAndView.addObject("status","ListofMyOrders");
-		ResponseEntity<ArrayList<Order_Details>> orderList = restTemplate.exchange(restURl.getrestURL()+"rest_myOrders/"+username, HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Order_Details>>() {
+		ResponseEntity<ArrayList<Order_Details>> orderList = restTemplate.exchange(restURl.getrestURL()+"rest/myOrders/"+username, HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Order_Details>>() {
 		});
 		System.out.println(orderList.getBody());
 		modelAndView.addObject("orderList",orderList.getBody());
@@ -59,7 +59,7 @@ public class WareHouse_Manager_Controller {
 		int itemCode=Integer.parseInt(item_code);
 		Item_Details itemDetails=new Item_Details();
 		itemDetails.setItem_code(itemCode);
-		String result=restTemplate.postForObject(restURl.getrestURL()+"rest_DeleteItem/", itemDetails,String.class);
+		String result=restTemplate.postForObject(restURl.getrestURL()+"rest/DeleteItem", itemDetails,String.class);
 		if(result.equals("deleted"))
 		{
 			modelAndView.addObject("status","Item Deleted");
@@ -79,7 +79,7 @@ public class WareHouse_Manager_Controller {
 		System.out.println(customer_code);
 		purchaseDetails.setItem_code(item_code);
 		purchaseDetails.setQuantity(item_quantity);
-		Purchase_Details purchaseDone=restTemplate.postForObject(restURl.getrestURL()+"rest_Billing", purchaseDetails, Purchase_Details.class);
+		Purchase_Details purchaseDone=restTemplate.postForObject(restURl.getrestURL()+"rest/Billing", purchaseDetails, Purchase_Details.class);
 		if(purchaseDone!=null)
 		{
 			if(purchaseDone.getItem_code()==0)
@@ -116,7 +116,7 @@ public class WareHouse_Manager_Controller {
 		orderDetails.setManufacturer_name(manufacturer_name);
 		orderDetails.setManager_name(manager_name);
 		orderDetails.setStatus("pending");
-		Order_Details orderDone=restTemplate.postForObject(restURl.getrestURL()+"rest_PlaceOrder", orderDetails, Order_Details.class);
+		Order_Details orderDone=restTemplate.postForObject(restURl.getrestURL()+"rest/PlaceOrder", orderDetails, Order_Details.class);
 		if(orderDone!=null)
 		{
 			modelAndView.addObject("status","Order Placed");
@@ -137,7 +137,7 @@ public class WareHouse_Manager_Controller {
 		Item_Details itemDetails=new Item_Details();
 		itemDetails.setItem_code(item_code);
 		itemDetails.setItem_price(item_price);
-		Item_Details itemDone=restTemplate.postForObject(restURl.getrestURL()+"rest_UpdatePrice", itemDetails, Item_Details.class);
+		Item_Details itemDone=restTemplate.postForObject(restURl.getrestURL()+"rest/UpdatePrice", itemDetails, Item_Details.class);
 		if(itemDone!=null)
 		{
 			modelAndView.addObject("status","Price Updated");
@@ -157,7 +157,7 @@ public class WareHouse_Manager_Controller {
 	public ModelAndView ListPurchase(String date)
 	{
 	
-		ResponseEntity<ArrayList<Purchase_Details>> purchaseList = restTemplate.exchange(restURl.getrestURL()+"rest_ListPurchase/"+date, HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Purchase_Details>>() {
+		ResponseEntity<ArrayList<Purchase_Details>> purchaseList = restTemplate.exchange(restURl.getrestURL()+"rest/ListPurchase/"+date, HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Purchase_Details>>() {
 		});
 		
 		if(!purchaseList.getBody().isEmpty())
@@ -184,7 +184,7 @@ public class WareHouse_Manager_Controller {
 		customerDetails.setAddress(address);
 		int number=Integer.parseInt(phone_number);
 		customerDetails.setPhone_number(number);
-		Customer_Details customer=restTemplate.postForObject(restURl.getrestURL()+"rest_customerRegister", customerDetails, Customer_Details.class);
+		Customer_Details customer=restTemplate.postForObject(restURl.getrestURL()+"rest/customerRegister", customerDetails, Customer_Details.class);
 		if(customer!=null)
 		{
 			modelAndView.addObject("status","Registration SuccessFull");
@@ -198,7 +198,7 @@ public class WareHouse_Manager_Controller {
 	@RequestMapping("CustomerDetails")
 	public ModelAndView CustomerDeatils(int customer_code)
 	{
-		Customer_Details customer=restTemplate.getForObject(restURl.getrestURL()+"rest_getCustomerDetails/"+customer_code, Customer_Details.class);
+		Customer_Details customer=restTemplate.getForObject(restURl.getrestURL()+"rest/getCustomerDetails/"+customer_code, Customer_Details.class);
 		if(customer!=null)
 		{
 			modelAndView.addObject("status","customerDetails");
@@ -223,7 +223,7 @@ public class WareHouse_Manager_Controller {
 		orderDetails.setOrder_Id(orderId);
 		orderDetails.setStatus("Canceled");
 		
-		Order_Details orderDone=restTemplate.postForObject(restURl.getrestURL()+"rest_OrderCancel", orderDetails, Order_Details.class);
+		Order_Details orderDone=restTemplate.postForObject(restURl.getrestURL()+"rest/OrderCancel", orderDetails, Order_Details.class);
 		
 		modelAndView.addObject("orderId",orderDone.getOrder_Id());
 		modelAndView.addObject("status","OrderCancel");

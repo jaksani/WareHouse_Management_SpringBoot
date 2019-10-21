@@ -31,7 +31,7 @@ public class Manufacturer_Controller {
 	public ModelAndView viewItems(@SessionAttribute("username") String username)
 	{
 		modelAndView.addObject("status","viewOrders");
-		ResponseEntity<ArrayList<Order_Details>> orderList = restTemplate.exchange(restUrl.getrestURL()+"rest_viewOrders/"+username, HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Order_Details>>() {
+		ResponseEntity<ArrayList<Order_Details>> orderList = restTemplate.exchange(restUrl.getrestURL()+"rest/viewOrders/"+username, HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Order_Details>>() {
 		});
 		modelAndView.addObject("status","ListofOrders");
 		modelAndView.addObject("orderList",orderList.getBody());
@@ -49,7 +49,7 @@ public class Manufacturer_Controller {
 		orderDetails.setOrder_Id(orderId);
 		orderDetails.setStatus("Accepted");
 		
-		Order_Details orderDone=restTemplate.postForObject(restUrl.getrestURL()+"rest_OrderAccept", orderDetails, Order_Details.class);
+		Order_Details orderDone=restTemplate.postForObject(restUrl.getrestURL()+"rest/OrderAccept", orderDetails, Order_Details.class);
 		
 		modelAndView.addObject("orderId",orderDone.getOrder_Id());
 		modelAndView.addObject("status","OrderAccept");
@@ -67,7 +67,7 @@ public class Manufacturer_Controller {
 		orderDetails.setOrder_Id(orderId);
 		orderDetails.setStatus("Rejected");
 		
-		Order_Details orderDone=restTemplate.postForObject(restUrl.getrestURL()+"rest_OrderReject", orderDetails, Order_Details.class);
+		Order_Details orderDone=restTemplate.postForObject(restUrl.getrestURL()+"rest/OrderReject", orderDetails, Order_Details.class);
 		modelAndView.addObject("orderId",orderDone.getOrder_Id());
 		modelAndView.addObject("status","OrderReject");
 		modelAndView.setViewName("Manufacturer");
