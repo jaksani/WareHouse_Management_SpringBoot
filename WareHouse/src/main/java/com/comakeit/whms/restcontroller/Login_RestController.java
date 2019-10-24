@@ -21,15 +21,6 @@ public class Login_RestController {
 	{
 		
 		User user=loginRepository.getUserType(loginCredentials);
-		if(user==null)
-		{
-//			throw new UnAuthorizedException("Authorization denied");
-			return null;
-		}
-		else
-		{
 			return user;
-		}
-		
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.comakeit.whms.WareHouseApplication;
 import com.comakeit.whms.bean.User;
+import com.comakeit.whms.exception.UnAuthorizedException;
 import com.comakeit.whms.repository.UserRepository;
 @Component
 @EnableAutoConfiguration
@@ -27,8 +28,8 @@ public class LoginService extends WareHouseApplication {
 				return user;
 			}
 			else
-				return null;
+				 throw new UnAuthorizedException("Authorization denied");
 		}
-		return null;
+		throw new UnAuthorizedException("Authorization denied");
 	}
 }

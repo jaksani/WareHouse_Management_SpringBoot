@@ -12,6 +12,9 @@ import com.comakeit.whms.bean.Customer_Details;
 import com.comakeit.whms.bean.Item_Details;
 import com.comakeit.whms.bean.Order_Details;
 import com.comakeit.whms.bean.Purchase_Details;
+import com.comakeit.whms.exception.InSufficientQuantityException;
+import com.comakeit.whms.exception.NotFoundException;
+import com.comakeit.whms.exception.UnAuthorizedException;
 import com.comakeit.whms.repository.Customer_Details_Repository;
 import com.comakeit.whms.repository.Item_Details_Repository;
 import com.comakeit.whms.repository.Order_Details_Repository;
@@ -57,7 +60,7 @@ public class WareHouse_Manager_Service {
 				int stock=item.getStock();
 				if(stock<item_quantity)
 				{
-					return -1;
+					throw new InSufficientQuantityException();
 				}
 				else
 				{
@@ -73,7 +76,7 @@ public class WareHouse_Manager_Service {
 					return item_price;
 				}
 		}
-		return 0;
+		throw new NotFoundException("Item not found with the given item code :"+item_code);
 	}
 
 	public Item_Details deleteItem(Integer item_code) {
@@ -84,7 +87,8 @@ public class WareHouse_Manager_Service {
 			itemRepository.delete(item);
 			return item;
 		}
-		return null;
+		throw new NotFoundException("Item not found with the given item code :"+item_code);
+		
 	}
 
 	public Item_Details updatePrice(Item_Details itemDetails) {
@@ -96,7 +100,7 @@ public class WareHouse_Manager_Service {
 			itemRepository.save(item);
 			return item;
 		}
-		return null;
+		throw new NotFoundException("Item not found with the given item code :"+itemDetails.getItem_code());
 	}
 
 	public Order_Details placeOrder(Order_Details orderDetails) {
@@ -106,7 +110,7 @@ public class WareHouse_Manager_Service {
 			orderDetails.setStatus("pending");
 			return orderRepository.save(orderDetails);
 		}
-		return null;
+		throw new NotFoundException("Item not found with the given item code :"+orderDetails.getItem_code());
 	}
 
 	public Purchase_Details billing(Purchase_Details purchaseDetails) {
@@ -115,20 +119,6 @@ public class WareHouse_Manager_Service {
 		{
 			Purchase_Details purchase=new Purchase_Details();
 			int totalPrice=WMService.discountItem(purchaseDetails.getItem_code(),purchaseDetails.getQuantity());	
-			if(totalPrice==-1)
-			{
-				purchase.setQuantity(0);
-				purchase.setItem_code(-1);
-				return purchase;
-			}
-			else if(totalPrice==0)
-			{
-				purchase.setItem_code(0);
-				purchase.setQuantity(-1);
-				return purchase;
-			}
-			else
-			{
 				LocalDate date=LocalDate.now();
 				
 				purchase.setCustomer_code(purchaseDetails.getCustomer_code());
@@ -140,9 +130,8 @@ public class WareHouse_Manager_Service {
 				Purchase_Details purchaseDone=purchaseRepository.save(purchase);
 				
 				return purchaseDone;
-			}
 		}
-		return null;
+		throw new NotFoundException("Customer not found with the given customer code :"+purchaseDetails.getCustomer_code());
 	}
 
 	public ArrayList<Purchase_Details> listPurchase(LocalDate date) {
@@ -166,7 +155,7 @@ public class WareHouse_Manager_Service {
 		
 		if(customerRepository.existsById(customer_code))
 			return customerRepository.findById(customer_code).get();
-		return null;
+		throw new NotFoundException("Customer not found with the given customer code :"+customer_code);
 	}
 
 	public Order_Details orderCancel(Order_Details orderDetails) {

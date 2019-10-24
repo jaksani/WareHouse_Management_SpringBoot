@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,28 +31,30 @@ public class Login_Controller {
 		User loginCredentials=new User();
 		loginCredentials.setUser_name(user_name);
 		loginCredentials.setPassword(password);
-		User user=restTemplate.postForObject(restURl.getrestURL()+"verify/login",loginCredentials, User.class);
-		if(!user.getUser_type().equals("Wrong"))
-		{
-			if(user.getUser_type().equals("Manufacturer"))
+		try {
+			User user=restTemplate.postForObject(restURl.getrestURL()+"verify/login",loginCredentials, User.class);
+			if(!user.getUser_type().equals("Wrong"))
 			{
-				modelAndView.addObject("username",user_name);
-				modelAndView.setViewName("Manufacturer");
+				if(user.getUser_type().equals("Manufacturer"))
+				{
+					modelAndView.addObject("username",user_name);
+					modelAndView.setViewName("Manufacturer");
+				}
+				else if(user.getUser_type().equals("WareHouse_Manager"))
+				{
+					modelAndView.addObject("username",user_name);
+					modelAndView.setViewName("WareHouse_Manager");
+				}
 			}
-			else if(user.getUser_type().equals("WareHouse_Manager"))
-			{
-				modelAndView.addObject("username",user_name);
-				modelAndView.setViewName("WareHouse_Manager");
-			}
+			return modelAndView;
 		}
-		else 
+		catch(HttpClientErrorException exception)
 		{
 			ModelAndView mv=new ModelAndView();
 			mv.addObject("status","Wrong Credentials");
 			mv.setViewName("index");
 			return mv;
 		}
-		return modelAndView;
 	}
 	
 	
