@@ -23,7 +23,6 @@ A warehouse is a place where raw materials or manufactured goods are stored prio
 
 ### TECHNOLOGIES USED:
 	
-	Angular,
 	SpringBoot,
 	MY SQL.
 
@@ -34,3 +33,7 @@ A warehouse is a place where raw materials or manufactured goods are stored prio
 	- Purchase Details
 	- Customer Details
 	- Transaction Details
+	
+## Source Code Information:
+- The main Source Code exists in the WareHouse folder.
+- The sql scripts of the datatables exists in the Database folder.
